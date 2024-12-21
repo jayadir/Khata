@@ -1,0 +1,36 @@
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+}
+.formClass{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.formInput{
+    margin: 10px;
+    padding: 10px;
+    width: 300px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+.formButton{
+    margin: 10px;
+    padding: 10px;
+    width: 300px;
+    border-radius: 15px;
+    border: 1px solid #ccc;
+    background-color: #ff3c00;
+    color: white;
+    cursor: pointer;
+}
+.formText{
+    color: blue;
+    cursor: pointer;
+    text-decoration: underline;
+}

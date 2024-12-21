@@ -1,0 +1,187 @@
+.container {
+    padding: 20px;
+}
+
+.buttons {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.takeCredit {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    flex: 1;
+    min-width: 120px;
+}
+
+.payBack {
+    background-color: green;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    flex: 1;
+    min-width: 120px;
+}
+
+.history {
+    margin-top: 20px;
+}
+
+.historyHeader {
+    margin-bottom: 10px;
+}
+
+.historyItem {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 0px 4px;
+    border-top: 2px solid #ccc;
+
+}
+
+@media (max-width: 768px) {
+    .buttons {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .takeCredit,
+    .payBack {
+        width: 100%;
+    }
+
+
+
+    .historyItem p {
+        margin: 5px 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 10px;
+    }
+
+    .historyHeader {
+        font-size: 18px;
+    }
+
+    .historyItem p {
+        font-size: 14px;
+    }
+}
+
+
+
+
+
+/* for business */
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+}
+
+
+.headerB {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.shopInfo {
+    text-align: left;
+}
+
+.shopName {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.shopLocation {
+    font-size: 14px;
+    color: gray;
+}
+
+.summary {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.summaryBox {
+    flex: 1;
+    text-align: center;
+}
+
+.label {
+    font-size: 14px;
+    color: gray;
+}
+
+.amountRed {
+    color: red;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.amountGreen {
+    color: green;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* Customer list */
+.customerList {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.customerRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.customerInfo {
+    display: flex;
+    align-items: center;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: lightgray;
+    margin-right: 10px;
+}
+
+.customerName {
+    font-size: 16px;
+}
+
+.customerDetails {
+    text-align: right;
+}
+
+.remindButton {
+    background: none;
+    border: none;
+    color: red;
+    font-size: 12px;
+    cursor: pointer;
+    text-decoration: underline;
+}
