@@ -23,9 +23,9 @@ exports.createTransaction = async (req, res) => {
 };
 
 exports.getTransactions = async (req, res) => {
-  const { mobile } = req.params;
+  const { mobile,businessMobile } = req.params;
   try {
-    const transactions = await transaction.find({ userMobile: mobile });
+    const transactions = await transaction.find({ userMobile: mobile,businessMobile });
     res.status(200).json(transactions);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -68,3 +68,14 @@ exports.getCustomers = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+exports.getSingleCustomerTransactions = async (req, res) => {
+  const {customerMobile,businessMobile}=req.body;
+  try {
+    console.log(customerMobile,businessMobile);
+    const transactions = await transaction.find({ userMobile: customerMobile,businessMobile }).populate("userId");
+    res.status(200).json(transactions);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+}

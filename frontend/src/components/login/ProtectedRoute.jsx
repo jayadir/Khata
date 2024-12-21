@@ -37,7 +37,7 @@ export default function ProtectedRoute({ children }) {
                   userId: res.data.userId,
                 })
               );
-              navigate("/");
+              // navigate("/");
             } else {
               alert(res.data.message);
             }
@@ -50,7 +50,7 @@ export default function ProtectedRoute({ children }) {
         navigate("/login");
       }
     }
-  }, [user, navigate]);
+  }, [user, navigate,dispatch]);
   return user ? <Layout>{children}</Layout> : <Login />;
 }
 function getCookie(name) {

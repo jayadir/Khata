@@ -10,6 +10,7 @@ import store from "./redux/store";
 import ProtectedRoute from "./components/login/ProtectedRoute";
 import HomePage from "./components/homepage/HomePage";
 import Amount from "./components/amount/Amount";
+import CustomerDetails from "./components/Business/customerdetails/CustomerDetails";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const router = createBrowserRouter([
   {
@@ -29,10 +30,26 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/amount/:type",
+    path: "/business/:mobile",
+    element: (
+      <ProtectedRoute>
+        <HomePage />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/amount/:type/:b",
     element:(
       <ProtectedRoute>
         <Amount/>
+      </ProtectedRoute>
+    )
+  },
+  {
+    path:"/customer/:mobile",
+    element:(
+      <ProtectedRoute>
+        <CustomerDetails/>
       </ProtectedRoute>
     )
   }

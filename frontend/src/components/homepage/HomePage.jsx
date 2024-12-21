@@ -1,21 +1,18 @@
 import React, { useEffect, useState } from "react";
 import styles from "./homepage.module.css";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+
 export default function HomePage() {
   const navigate = useNavigate();
-  // const { username, type, mobile } = useSelector((state) => state.user);
-  const { username, type, mobile } = {
-    username: "name",
-    type: "Business",
-    mobile: "32",
-  };
+  const { mobile: businessMobile } = useParams();
+  const { username, type, mobile } = useSelector((state) => state.user);
   const [isBusiness, setIsBusiness] = useState(type === "Business");
-  const b = 32;
   const [transactions, setTransactions] = useState([]);
   const [customers, setCustomers] = useState([]);
   const [amount, setAmount] = useState(0);
+
   useEffect(() => {
     const amt = customers.reduce(
       (acc, customer) => acc + customer.totalAmount,
@@ -23,11 +20,12 @@ export default function HomePage() {
     );
     setAmount(amt);
   }, [customers]);
+
   useEffect(() => {
     if (!isBusiness) {
       async function getCustTransactions() {
         const res = await axios.get(
-          `${process.env.REACT_APP_API_URL}/api/transaction/get/${mobile}`,
+          `${process.env.REACT_APP_API_URL}/api/transaction/get/${mobile}/${businessMobile}`,
           { withCredentials: true }
         );
         console.log(res);
@@ -37,7 +35,7 @@ export default function HomePage() {
     } else {
       async function getCustomers() {
         const res = await axios.get(
-          `${process.env.REACT_APP_API_URL}/api/transaction/getCustomers/${b}`,
+          `${process.env.REACT_APP_API_URL}/api/transaction/getCustomers/${businessMobile}`,
           { withCredentials: true }
         );
         console.log(res);
@@ -45,13 +43,21 @@ export default function HomePage() {
       }
       getCustomers();
     }
-  }, []);
+  }, [businessMobile, isBusiness, mobile]);
+
   const handleTakeCredit = async () => {
-    navigate("/amount/credit");
+    navigate(`/amount/credit/${businessMobile}`);
   };
+
   const handlePayBack = async () => {
-    navigate("/amount/payback");
+    navigate(`/amount/payback/${businessMobile}`);
   };
+
+  const handleRemindClick = (transaction) => {
+    const message = `Reminder: You have a transaction `;
+    window.open(`https://wa.me/${transaction.mobile}?text=${encodeURIComponent(message)}`, '_blank');
+  };
+
   return (
     <>
       {isBusiness ? (
@@ -76,14 +82,14 @@ export default function HomePage() {
 
           <div className={styles.customerList}>
             {customers.map((customer) => (
-              <div key={customer.mobile} className={styles.customerRow}>
+              <div key={customer.mobile} className={styles.customerRow} onClick={() => navigate(`/customer/${customer.mobile}`)}>
                 <div className={styles.customerInfo}>
                   <div className={styles.avatar}></div>
                   <p className={styles.customerName}>{customer.username}</p>
                 </div>
                 <div className={styles.customerDetails}>
                   <p className={styles.amountRed}>₹{customer.totalAmount}</p>
-                  <button className={styles.remindButton}>REMIND?</button>
+                  <button className={styles.remindButton} onClick={() => handleRemindClick(customer)}>REMIND?</button>
                 </div>
               </div>
             ))}
@@ -102,20 +108,6 @@ export default function HomePage() {
           </div>
           <div className={styles.history}>
             <h3 className={styles.historyHeader}>History</h3>
-            {/* <div
-              className={styles.historyItem}
-              style={{ backgroundColor: "red" }}
-            >
-              <p>983</p>
-              <p>time</p>
-            </div>
-            <div
-              className={styles.historyItem}
-              style={{ backgroundColor: "green" }}
-            >
-              <p>983 g</p>
-              <p>time</p>
-            </div> */}
             {transactions.map((transaction) => (
               <div
                 key={transaction._id}
