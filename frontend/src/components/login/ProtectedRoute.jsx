@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Login from "./Login";
 import axios from "axios";
 import { setUser } from "../../redux/userSlice";
+import Layout from "../layout/Layout";
 export default function ProtectedRoute({ children }) {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
@@ -50,7 +51,7 @@ export default function ProtectedRoute({ children }) {
       }
     }
   }, [user, navigate]);
-  return user ? children : <Login />;
+  return user ? <Layout>{children}</Layout> : <Login />;
 }
 function getCookie(name) {
   const value = `; ${document.cookie}`;

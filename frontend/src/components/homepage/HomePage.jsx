@@ -6,11 +6,23 @@ import axios from "axios";
 export default function HomePage() {
   const navigate = useNavigate();
   // const { username, type, mobile } = useSelector((state) => state.user);
-  const { username, type, mobile }={username:"name",type:"Business",mobile:"32"};
+  const { username, type, mobile } = {
+    username: "name",
+    type: "Business",
+    mobile: "32",
+  };
   const [isBusiness, setIsBusiness] = useState(type === "Business");
   const b = 32;
   const [transactions, setTransactions] = useState([]);
   const [customers, setCustomers] = useState([]);
+  const [amount, setAmount] = useState(0);
+  useEffect(() => {
+    const amt = customers.reduce(
+      (acc, customer) => acc + customer.totalAmount,
+      0
+    );
+    setAmount(amt);
+  }, [customers]);
   useEffect(() => {
     if (!isBusiness) {
       async function getCustTransactions() {
@@ -22,10 +34,12 @@ export default function HomePage() {
         setTransactions(res.data);
       }
       getCustTransactions();
-    }
-    else{
-      async function getCustomers(){
-        const res=await axios.get(`${process.env.REACT_APP_API_URL}/api/transaction/getCustomers/${b}`,{withCredentials:true});
+    } else {
+      async function getCustomers() {
+        const res = await axios.get(
+          `${process.env.REACT_APP_API_URL}/api/transaction/getCustomers/${b}`,
+          { withCredentials: true }
+        );
         console.log(res);
         setCustomers(res.data);
       }
@@ -52,29 +66,27 @@ export default function HomePage() {
           <div className={styles.summary}>
             <div className={styles.summaryBox}>
               <p className={styles.label}>YOU GAVE</p>
-              <p className={styles.amountRed}>₹1</p>
+              <p className={styles.amountRed}>{amount}</p>
             </div>
             <div className={styles.summaryBox}>
               <p className={styles.label}>YOU SHOULD GIVE</p>
-              <p className={styles.amountGreen}>₹1</p>
+              <p className={styles.amountGreen}>₹0</p>
             </div>
           </div>
 
           <div className={styles.customerList}>
-            {Array(5)
-              .fill(null)
-              .map((_, index) => (
-                <div key={index} className={styles.customerRow}>
-                  <div className={styles.customerInfo}>
-                    <div className={styles.avatar}></div>
-                    <p className={styles.customerName}>CUSTOMER {index + 1}</p>
-                  </div>
-                  <div className={styles.customerDetails}>
-                    <p className={styles.amountRed}>₹1</p>
-                    <button className={styles.remindButton}>REMIND?</button>
-                  </div>
+            {customers.map((customer) => (
+              <div key={customer.mobile} className={styles.customerRow}>
+                <div className={styles.customerInfo}>
+                  <div className={styles.avatar}></div>
+                  <p className={styles.customerName}>{customer.username}</p>
                 </div>
-              ))}
+                <div className={styles.customerDetails}>
+                  <p className={styles.amountRed}>₹{customer.totalAmount}</p>
+                  <button className={styles.remindButton}>REMIND?</button>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       ) : (

@@ -125,3 +125,13 @@ exports.loginWithRefreshToken = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+exports.logout=async (req,res)=>{
+  try {
+    await refreshToken.findOneAndDelete({refreshToken:req.cookies.refreshTkn});
+    res.clearCookie("refreshTkn");
+    res.clearCookie("accessTkn");
+    res.status(200).json({message:"logout success"})
+  } catch (error) {
+    res.status(500).json({message:error.message})
+  }
+}

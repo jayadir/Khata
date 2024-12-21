@@ -3,6 +3,7 @@ const app = express();
 const cookieParser = require("cookie-parser");
 require("dotenv").config();
 const cors = require("cors");
+const authMiddleware = require("./middlewares/authMiddleware");
 const mongoose = require("mongoose");
 mongoose
   .connect(process.env.MONGO_URL)
@@ -20,6 +21,7 @@ app.use(cors( {
 }));
 app.use(express.json());
 app.use("/api/auth", require("./controllers/authController/userRouter"));
+app.use(authMiddleware.authMiddleware);
 app.use("/api/transaction", require("./controllers/transactionController/transactionRouter"));
 app.listen(5000, () => {
   console.log("Backend is running");
