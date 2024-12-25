@@ -14,7 +14,7 @@ mongoose
     console.log(err);
   });
 app.use(cookieParser());
-const allowedOrigins = ['http://localhost:3000', 'https://khata-two.vercel.app'];
+const allowedOrigins = ['http://localhost:3000', 'https://khata-tau.vercel.app'];
 app.use(cors({
   origin: (origin, callback) => {
     if (allowedOrigins.includes(origin)) {
