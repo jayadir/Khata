@@ -20,14 +20,14 @@ exports.signup = async (req, res) => {
       // httpOnly: true,
       secure: true,
       sameSite: "none",
-
+      domain: "khata-tau.vercel.app",
       maxAge: 365 * 24 * 60 * 60 * 1000,
     });
     res.cookie("refreshTkn", refreshTkn, {
       // httpOnly: true,
       secure: true,
       sameSite: "none",
-
+      domain: "khata-tau.vercel.app",
       maxAge: 365 * 24 * 60 * 60 * 1000,
     });
     res
@@ -67,13 +67,13 @@ exports.login = async (req, res) => {
       maxAge: 365 * 24 * 60 * 60 * 1000,
       sameSite: "none",
       secure: true,
-
+      domain: "khata-tau.vercel.app",
     });
     res.cookie("refreshTkn", refreshTkn, {
       maxAge: 365 * 24 * 60 * 60 * 1000,
       sameSite: "none",
       secure: true,
-
+      domain: "khata-tau.vercel.app",
     });
     res
       .status(200)
