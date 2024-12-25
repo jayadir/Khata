@@ -18,10 +18,14 @@ exports.signup = async (req, res) => {
     // });
     res.cookie("accessTkn", accessTkn, {
       // httpOnly: true,
+      sameSite: "none",
+
       maxAge: 365 * 24 * 60 * 60 * 1000,
     });
     res.cookie("refreshTkn", refreshTkn, {
       // httpOnly: true,
+      sameSite: "none",
+
       maxAge: 365 * 24 * 60 * 60 * 1000,
     });
     res
@@ -58,12 +62,12 @@ exports.login = async (req, res) => {
       { upsert: true, new: true }
     );
     res.cookie("accessTkn", accessTkn, {
-      // httpOnly:true,
       maxAge: 365 * 24 * 60 * 60 * 1000,
+      sameSite: "none",
     });
     res.cookie("refreshTkn", refreshTkn, {
-      // httpOnly:true,
       maxAge: 365 * 24 * 60 * 60 * 1000,
+      sameSite: "none",
     });
     res
       .status(200)
