@@ -18,12 +18,14 @@ exports.signup = async (req, res) => {
     // });
     res.cookie("accessTkn", accessTkn, {
       // httpOnly: true,
+      secure: true,
       sameSite: "none",
 
       maxAge: 365 * 24 * 60 * 60 * 1000,
     });
     res.cookie("refreshTkn", refreshTkn, {
       // httpOnly: true,
+      secure: true,
       sameSite: "none",
 
       maxAge: 365 * 24 * 60 * 60 * 1000,
@@ -64,10 +66,14 @@ exports.login = async (req, res) => {
     res.cookie("accessTkn", accessTkn, {
       maxAge: 365 * 24 * 60 * 60 * 1000,
       sameSite: "none",
+      secure: true,
+
     });
     res.cookie("refreshTkn", refreshTkn, {
       maxAge: 365 * 24 * 60 * 60 * 1000,
       sameSite: "none",
+      secure: true,
+
     });
     res
       .status(200)
