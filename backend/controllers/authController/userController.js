@@ -19,14 +19,14 @@ exports.signup = async (req, res) => {
     res.cookie("accessTkn", accessTkn, {
       // httpOnly: true,
       secure: true,
-      sameSite: "none",
+      sameSite: "None",
       domain: ".vercel.app",
       maxAge: 365 * 24 * 60 * 60 * 1000,
     });
     res.cookie("refreshTkn", refreshTkn, {
       // httpOnly: true,
       secure: true,
-      sameSite: "none",
+      sameSite: "None",
       domain: ".vercel.app",
       maxAge: 365 * 24 * 60 * 60 * 1000,
     });
@@ -65,13 +65,14 @@ exports.login = async (req, res) => {
     );
     res.cookie("accessTkn", accessTkn, {
       maxAge: 365 * 24 * 60 * 60 * 1000,
-      sameSite: "none",
+      sameSite: "None",
       secure: true,
+      
       domain: ".vercel.app",
     });
     res.cookie("refreshTkn", refreshTkn, {
       maxAge: 365 * 24 * 60 * 60 * 1000,
-      sameSite: "none",
+      sameSite: "None",
       secure: true,
       domain: ".vercel.app",
     });
@@ -116,10 +117,14 @@ exports.loginWithRefreshToken = async (req, res) => {
     );
     res.cookie("accessTkn", accessTkn, {
       // httpOnly: true,
+      sameSite: "None",
+      secure: true,
       maxAge: 365 * 24 * 60 * 60 * 1000,
     });
     res.cookie("refreshTkn", newRefreshTkn, {
       // httpOnly: true,
+      sameSite: "None",
+      secure: true,
       maxAge: 365 * 24 * 60 * 60 * 1000,
     });
     res
