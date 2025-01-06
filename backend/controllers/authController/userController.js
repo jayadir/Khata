@@ -19,26 +19,24 @@ exports.signup = async (req, res) => {
     res.cookie("accessTkn", accessTkn, {
       // httpOnly: true,
       secure: true,
-      SameSite: "None",
+      sameSite: 'none',
       domain: ".vercel.app",
-      maxAge: 365 * 24 * 60 * 60 * 1000,
+      maxAge: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000),
     });
     res.cookie("refreshTkn", refreshTkn, {
       // httpOnly: true,
       secure: true,
-      SameSite: "None",
+      sameSite: 'none',
       domain: ".vercel.app",
-      maxAge: 365 * 24 * 60 * 60 * 1000,
+      maxAge: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000),
     });
-    res
-      .status(201)
-      .json({
-        message: "User created successfully",
-        username,
-        mobile,
-        type,
-        userId: response._id,
-      });
+    res.status(201).json({
+      message: "User created successfully",
+      username,
+      mobile,
+      type,
+      userId: response._id,
+    });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -64,27 +62,25 @@ exports.login = async (req, res) => {
       { upsert: true, new: true }
     );
     res.cookie("accessTkn", accessTkn, {
-      maxAge: 365 * 24 * 60 * 60 * 1000,
-      SameSite: "None",
+      maxAge: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000),
+      sameSite: 'none',
       secure: true,
-      
+
       domain: ".vercel.app",
     });
     res.cookie("refreshTkn", refreshTkn, {
-      maxAge: 365 * 24 * 60 * 60 * 1000,
-      SameSite: "None",
+      maxAge: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000),
+      sameSite: 'none',
       secure: true,
       domain: ".vercel.app",
     });
-    res
-      .status(200)
-      .json({
-        message: "Login successful",
-        username: existingUser.username,
-        mobile,
-        type: existingUser.type,
-        userId: existingUser._id,
-      });
+    res.status(200).json({
+      message: "Login successful",
+      username: existingUser.username,
+      mobile,
+      type: existingUser.type,
+      userId: existingUser._id,
+    });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -117,36 +113,36 @@ exports.loginWithRefreshToken = async (req, res) => {
     );
     res.cookie("accessTkn", accessTkn, {
       // httpOnly: true,
-      SameSite: "None",
+      sameSite: 'none',
       secure: true,
-      maxAge: 365 * 24 * 60 * 60 * 1000,
+      maxAge: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000),
     });
     res.cookie("refreshTkn", newRefreshTkn, {
       // httpOnly: true,
-      SameSite: "None",
+      sameSite: 'none',
       secure: true,
-      maxAge: 365 * 24 * 60 * 60 * 1000,
+      maxAge: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000),
     });
-    res
-      .status(200)
-      .json({
-        message: "Login successful",
-        username: userData.username,
-        mobile: userData.mobile,
-        type: userData.type,
-        userId: userData._id,
-      });
+    res.status(200).json({
+      message: "Login successful",
+      username: userData.username,
+      mobile: userData.mobile,
+      type: userData.type,
+      userId: userData._id,
+    });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
-exports.logout=async (req,res)=>{
+exports.logout = async (req, res) => {
   try {
-    await refreshToken.findOneAndDelete({refreshToken:req.cookies.refreshTkn});
+    await refreshToken.findOneAndDelete({
+      refreshToken: req.cookies.refreshTkn,
+    });
     res.clearCookie("refreshTkn");
     res.clearCookie("accessTkn");
-    res.status(200).json({message:"logout success"})
+    res.status(200).json({ message: "logout success" });
   } catch (error) {
-    res.status(500).json({message:error.message})
+    res.status(500).json({ message: error.message });
   }
-}
+};
