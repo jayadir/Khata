@@ -1,6 +1,7 @@
 const user = require("../../models/userModel");
 const refreshToken = require("../../models/refreshTokenModel");
 const jwtService = require("../../services/jwt");
+
 exports.signup = async (req, res) => {
   try {
     const { username, mobile, password, type } = req.body;
@@ -12,23 +13,15 @@ exports.signup = async (req, res) => {
     });
     const token = new refreshToken({ token: refreshTkn, user: response._id });
     await token.save();
-    // await refreshToken.create({
-    //   token: refreshTkn,
-    //   user: response._id,
-    // });
     res.cookie("accessTkn", accessTkn, {
-      // httpOnly: true,
       secure: true,
       sameSite: 'none',
-      // domain: "vercel.app",
-      maxAge: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000),
+      maxAge: 365 * 24 * 60 * 60 * 1000, // 1 year in milliseconds
     });
     res.cookie("refreshTkn", refreshTkn, {
-      // httpOnly: true,
       secure: true,
       sameSite: 'none',
-      // domain: "vercel.app",
-      maxAge: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000),
+      maxAge: 365 * 24 * 60 * 60 * 1000, // 1 year in milliseconds
     });
     res.status(201).json({
       message: "User created successfully",
@@ -41,6 +34,7 @@ exports.signup = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
 exports.login = async (req, res) => {
   try {
     const { mobile, password } = req.body;
@@ -62,17 +56,14 @@ exports.login = async (req, res) => {
       { upsert: true, new: true }
     );
     res.cookie("accessTkn", accessTkn, {
-      maxAge: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000),
+      maxAge: 365 * 24 * 60 * 60 * 1000, // 1 year in milliseconds
       sameSite: 'none',
       secure: true,
-
-      // domain: "vercel.app",
     });
     res.cookie("refreshTkn", refreshTkn, {
-      maxAge: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000),
+      maxAge: 365 * 24 * 60 * 60 * 1000, // 1 year in milliseconds
       sameSite: 'none',
       secure: true,
-      // domain: "vercel.app",
     });
     res.status(200).json({
       message: "Login successful",
@@ -88,17 +79,12 @@ exports.login = async (req, res) => {
 
 exports.loginWithRefreshToken = async (req, res) => {
   try {
-    // console.log(req);
     const { refreshTkn } = req.cookies;
-    console.log(refreshTkn);
     if (!refreshTkn) {
       return res.status(401).json({ message: "Unauthorized" });
     }
     const token = await refreshToken.findOne({ token: refreshTkn });
-    // const token = await refreshToken.find();
-    console.log(token);
     if (!token) {
-      console.log("no token found");
       return res.status(401).json({ message: "Unauthorized" });
     }
     const userData = await user.findById(token.user);
@@ -112,17 +98,14 @@ exports.loginWithRefreshToken = async (req, res) => {
       { token: newRefreshTkn }
     );
     res.cookie("accessTkn", accessTkn, {
-      // httpOnly: true,
       sameSite: 'none',
       secure: true,
-      maxAge: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000),
-
+      maxAge: 365 * 24 * 60 * 60 * 1000, // 1 year in milliseconds
     });
     res.cookie("refreshTkn", newRefreshTkn, {
-      // httpOnly: true,
       sameSite: 'none',
       secure: true,
-      maxAge: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000),
+      maxAge: 365 * 24 * 60 * 60 * 1000, // 1 year in milliseconds
     });
     res.status(200).json({
       message: "Login successful",
@@ -135,6 +118,7 @@ exports.loginWithRefreshToken = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
 exports.logout = async (req, res) => {
   try {
     await refreshToken.findOneAndDelete({
