@@ -66,7 +66,7 @@ exports.login = async (req, res) => {
       sameSite: 'none',
       secure: true,
 
-      domain: "vercel.app",
+      // domain: "vercel.app",
     });
     res.cookie("refreshTkn", refreshTkn, {
       maxAge: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000),
