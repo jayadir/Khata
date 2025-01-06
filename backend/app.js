@@ -17,6 +17,7 @@ app.use(cookieParser());
 const allowedOrigins = ['http://localhost:3000', 'https://khata-tau.vercel.app'];
 app.use(cors({
   origin: (origin, callback) => {
+    console.log(origin);
     if (allowedOrigins.includes(origin)) {
       callback(null, true);  
     } else {

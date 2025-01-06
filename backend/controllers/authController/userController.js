@@ -20,14 +20,14 @@ exports.signup = async (req, res) => {
       // httpOnly: true,
       secure: true,
       sameSite: 'none',
-      domain: ".vercel.app",
+      domain: "vercel.app",
       maxAge: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000),
     });
     res.cookie("refreshTkn", refreshTkn, {
       // httpOnly: true,
       secure: true,
       sameSite: 'none',
-      domain: ".vercel.app",
+      domain: "vercel.app",
       maxAge: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000),
     });
     res.status(201).json({
@@ -66,13 +66,13 @@ exports.login = async (req, res) => {
       sameSite: 'none',
       secure: true,
 
-      domain: ".vercel.app",
+      domain: "vercel.app",
     });
     res.cookie("refreshTkn", refreshTkn, {
       maxAge: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000),
       sameSite: 'none',
       secure: true,
-      domain: ".vercel.app",
+      domain: "vercel.app",
     });
     res.status(200).json({
       message: "Login successful",
@@ -116,6 +116,7 @@ exports.loginWithRefreshToken = async (req, res) => {
       sameSite: 'none',
       secure: true,
       maxAge: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000),
+      
     });
     res.cookie("refreshTkn", newRefreshTkn, {
       // httpOnly: true,
