@@ -29,14 +29,14 @@ const router = createBrowserRouter([
       </ProtectedRoute>
     ),
   },
-  {
-    path: "/business/:mobile",
-    element: (
-      <ProtectedRoute>
-        <HomePage />
-      </ProtectedRoute>
-    ),
-  },
+  // {
+  //   path: "/business/:mobile",
+  //   element: (
+  //     <ProtectedRoute>
+  //       <HomePage />
+  //     </ProtectedRoute>
+  //   ),
+  // },
   {
     path: "/amount/:type/:b",
     element:(

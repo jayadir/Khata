@@ -6,7 +6,7 @@ import axios from "axios";
 
 export default function HomePage() {
   const navigate = useNavigate();
-  const { mobile: businessMobile } = useParams();
+  const { mobile: businessMobile } = {mobile:"6305964802"};
   const { username, type, mobile } = useSelector((state) => state.user);
   const [isBusiness, setIsBusiness] = useState(type === "Business");
   const [transactions, setTransactions] = useState([]);

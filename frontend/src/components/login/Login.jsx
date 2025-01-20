@@ -98,7 +98,7 @@ export default function Login() {
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
           />
-          {signup && (
+          {/* {signup && (
             <div>
               <input
                 type="radio"
@@ -115,7 +115,7 @@ export default function Login() {
               />
               <label>Customer</label>
             </div>
-          )}
+          )} */}
           <button className={style.formButton} onClick={handleSubmit}>
             {signup ? "Sign up" : "Login"}
           </button>
