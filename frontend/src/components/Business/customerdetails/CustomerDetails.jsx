@@ -13,7 +13,7 @@ export default function CustomerDetails() {
         `${process.env.REACT_APP_API_URL}/api/transaction/getCustomerTransaction`,
         {
           customerMobile: mobile,
-          businessMobile: 32,
+          businessMobile: 6305964802,
         },
         {
           withCredentials: true,

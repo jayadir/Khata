@@ -24,7 +24,7 @@ export default function Amount() {
       },{
         withCredentials:true
       })
-      navigate("/business/"+b);
+      navigate("/");
     } catch (error) {
       console.log(error);
       
