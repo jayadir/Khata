@@ -9,7 +9,7 @@ export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [mobile, setMobile] = useState("");
-  const [type, setType] = useState("");
+  const [type, setType] = useState("customer");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
